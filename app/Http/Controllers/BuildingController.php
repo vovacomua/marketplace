@@ -27,7 +27,6 @@ class BuildingController extends Controller
      */
     public function store(StoreBuildingRequest $request)
     {
-        //dd(123123);
         $building = Building::create($request->validated());
 
         return response()->json([
@@ -71,7 +70,7 @@ class BuildingController extends Controller
 
         return response()->json([
             'success' => $result,
-            'message' => 'Campaign deleted successfully',
+            'message' => 'Building deleted successfully',
         ]);
     }
 }
