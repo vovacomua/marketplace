@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
 class StoreBuildingRequest extends FormRequest
 {
@@ -22,6 +24,7 @@ class StoreBuildingRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'project_id' => 'required|exists:projects,id',
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'url' => 'nullable|url|max:255',
@@ -30,16 +33,12 @@ class StoreBuildingRequest extends FormRequest
         ];
     }
 
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array<string, string>
-     */
-    public function messages(): array
+    public function failedValidation(Validator $validator)
     {
-        return [
-            'name.required' => 'A name is required',
-            'address.required' => 'An address is required',
-        ];
+        throw new HttpResponseException(response()->json([
+            'success'   => false,
+            'message'   => 'Validation errors',
+            'data'      => $validator->errors()
+        ]));
     }
 }

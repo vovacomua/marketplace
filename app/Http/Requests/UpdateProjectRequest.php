@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class UpdateProjectRequest extends FormRequest
 {
@@ -14,23 +16,12 @@ class UpdateProjectRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
-     */
-    public function rules(): array
+    public function failedValidation(Validator $validator)
     {
-        return [
-            'name' => 'string|max:255',
-            'country' => 'string|max:255',
-            'description' => 'string',
-            'address' => 'string|max:255',
-            'url' => 'url|max:255',
-            'photo_url' => 'url|max:255',
-            'thumb_url' => 'url|max:255',
-            'start_date' => 'date',
-            'completion_date' => 'date|after_or_equal:start_date',
-        ];
+        throw new HttpResponseException(response()->json([
+            'success'   => false,
+            'message'   => 'Validation errors',
+            'data'      => $validator->errors()
+        ]));
     }
 }
