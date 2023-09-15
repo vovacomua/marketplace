@@ -23,4 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware(['checkAuthorization'])->group(function () {
     Route::apiResource('buildings', BuildingController::class);
     Route::apiResource('projects', ProjectController::class);
+    Route::apiResource('products', BuildingController::class)->parameters([
+        'products' => 'building', // This maps the "products" URI segment to the "building" parameter
+    ]);
 });

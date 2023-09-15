@@ -17,7 +17,7 @@ class BuildingController extends Controller
 
         return response()->json([
             'success'   => true,
-            'message'   => 'Buildings listed successfully',
+            'message'   => 'Products listed successfully',
             'data'      => $buildings,
         ]);
     }
@@ -31,7 +31,7 @@ class BuildingController extends Controller
 
         return response()->json([
             'success'    => true,
-            'message'   => 'Building created successfully',
+            'message'   => 'Product created successfully',
             'data'      => $building,
         ], 201);
     }
@@ -43,7 +43,7 @@ class BuildingController extends Controller
     {
         return response()->json([
             'success'    => true,
-            'message'   => 'Building fetched successfully',
+            'message'   => 'Product fetched successfully',
             'data'      => $building,
         ]);
     }
@@ -57,7 +57,7 @@ class BuildingController extends Controller
 
         return response()->json([
             'success' => $result,
-            'message' => 'Building updated successfully'
+            'message' => 'Product updated successfully'
         ]);
     }
 
@@ -70,7 +70,7 @@ class BuildingController extends Controller
 
         return response()->json([
             'success' => $result,
-            'message' => 'Building deleted successfully',
+            'message' => 'Product deleted successfully',
         ]);
     }
 }
