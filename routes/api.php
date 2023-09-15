@@ -20,5 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('buildings', BuildingController::class);
-Route::apiResource('projects', ProjectController::class);
+Route::middleware(['checkAuthorization'])->group(function () {
+    Route::apiResource('buildings', BuildingController::class);
+    Route::apiResource('projects', ProjectController::class);
+});
